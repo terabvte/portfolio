@@ -1,5 +1,5 @@
 import React from "react";
-import { Github, Briefcase, Code, Mail, Hand } from "lucide-react";
+import { Github, Briefcase, Code, Mail, Linkedin } from "lucide-react";
 
 interface NavLinkProps {
   href: string;
@@ -38,9 +38,7 @@ const PortfolioPage: React.FC = () => {
         {/* Hero Section */}
         <h1 className="mb-3 text-4xl font-extrabold sm:text-5xl md:text-7xl">
           Hey{" "}
-          <span className="inline-block origin-70 hover:animate-spin">
-            👋
-          </span>{" "}
+          <span className="inline-block hover:animate-pulse cursor-default">👋</span>{" "}
           I&apos;m Marco,
         </h1>
         <h1 className="mb-6 text-4xl font-extrabold sm:text-5xl md:text-7xl">
@@ -51,19 +49,17 @@ const PortfolioPage: React.FC = () => {
         </h1>
 
         {/* Sub-headline */}
-        <p className="mb-8 text-lg text-gray-400 sm:text-xl">
-          Full-Stack web developer | React, Next.js, Go
-        </p>
+        <p className="mb-8 text-lg text-gray-400 sm:text-xl">Marco Fediuc</p>
 
         {/* GitHub Button */}
         <a
-          href="https://github.com/terabvte" // Replace with your actual GitHub profile link
+          href="https://linkedin.com/in/marco-fediuc" // Replace with your actual GitHub profile link
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center px-6 py-3 mb-16 space-x-2 text-base text-white transition-colors duration-200 bg-gray-800 rounded-lg hover:bg-gray-600 sm:text-lg group"
         >
-          <Github className="w-5 h-5 sm:h-6 sm:w-6 group-hover:text-gray-300" />
-          <span>Follow me on GitHub</span>
+          <Linkedin className="w-5 h-5 sm:h-5 sm:w-5 group-hover:text-gray-300" />
+          <span className="pt-[2.5px]">Find me on Linkedin</span>
         </a>
       </main>
 
@@ -74,13 +70,13 @@ const PortfolioPage: React.FC = () => {
           icon={<Briefcase size={18} />}
           text="Projects"
         />
+        <NavLink href="/skills" icon={<Code size={18} />} text="Skills" />
         <NavLink
           href="https://github.com/terabvte"
           icon={<Github size={18} />}
           text="GitHub"
         />
-        <NavLink href="#skills" icon={<Code size={18} />} text="Skills" />
-        <NavLink href="#contact" icon={<Mail size={18} />} text="Contact" />
+        <NavLink href="/contact" icon={<Mail size={18} />} text="Contact" />
       </nav>
     </div>
   );

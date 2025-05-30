@@ -57,13 +57,7 @@ const ProjectsPage: React.FC = () => {
         )}
       </main>
 
-      {/* Footer (Optional - can be a shared component) */}
-      <footer className="py-8 text-sm text-center text-gray-500">
-        <p>
-          &copy; {new Date().getFullYear()} Marco Fediuc. All rights reserved.
-        </p>
-        <p>Built with Next.js & Tailwind CSS. Hosted on Vercel.</p>
-      </footer>
+
     </div>
   );
 };
