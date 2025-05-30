@@ -141,8 +141,8 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
-    <div className="group flex flex-col bg-gray-800 rounded-xl shadow-xl overflow-hidden transition-all duration-300 ease-in-out hover:shadow-2xl">
-      <div className="relative w-full h-48 sm:h-52 md:h-56 overflow-hidden">
+    <div className="flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-gray-800 shadow-xl group rounded-xl hover:shadow-2xl">
+      <div className="relative w-full h-48 overflow-hidden sm:h-52 md:h-56">
         <Image
           src={project.imageUrl}
           alt={`Screenshot of ${project.title}`}
@@ -152,22 +152,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         />
       </div>
 
-      <div className="p-5 sm:p-6 flex flex-col flex-grow">
+      <div className="flex flex-col flex-grow p-5 sm:p-6">
         <h3
-          className="text-xl sm:text-2xl font-semibold text-white mb-2 truncate"
+          className="mb-2 text-xl font-semibold text-white truncate sm:text-2xl"
           title={project.title}
         >
           {project.title}
         </h3>
         {/* Description: min-h-[60px] and line-clamp-3 help stabilize its height */}
-        <p className="text-gray-400 text-sm flex-grow min-h-[60px] line-clamp-3">
+        <p className="flex-grow mb-4 text-sm text-gray-400">
           {project.description}
         </p>
 
         {/* Tags Wrapper: This div will always exist and have a min-height */}
         {/* Adjust min-h-[3.5rem] (56px) as needed for ~2 rows of tags. */}
         {/* This ensures the space for tags is consistent, pushing content below it uniformly. */}
-        <div className="min-h-[3.5rem] mb-5 flex flex-wrap gap-2 items-start">
+        <div className="min-h-[3.5rem]  flex flex-wrap gap-2 items-start">
           {project.tags &&
             project.tags.slice(0, 5).map((tag) => {
               const style = tagStyles[tag] || defaultTagStyle;
@@ -187,7 +187,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         </div>
 
         {/* Action Buttons: mt-auto will push this to the bottom of the flex-grow parent */}
-        <div className="mt-auto flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+        <div className="flex flex-col mt-auto space-y-3 sm:flex-row sm:space-y-0 sm:space-x-3">
           {project.githubUrl && (
             <a
               href={project.githubUrl}

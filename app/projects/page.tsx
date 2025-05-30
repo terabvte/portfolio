@@ -36,7 +36,7 @@ const ProjectsPage: React.FC = () => {
       </header>
 
       {/* Main Content Area */}
-      <main className="container flex-grow px-4 py-8 mx-auto sm:px-6 lg:px-8 sm:py-12">
+      <main className="container px-4 py-8 mx-auto sm:px-6 lg:px-8 sm:py-12">
         {projectsData.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 sm:gap-8">
             {/* Map through the projectsData and render a ProjectCard for each project */}
@@ -56,8 +56,6 @@ const ProjectsPage: React.FC = () => {
           </div>
         )}
       </main>
-
-
     </div>
   );
 };
