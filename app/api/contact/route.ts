@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
       to: [toEmail],
       subject: subject,
       html: htmlContent,
-      reply_to: email, // Set the sender's email as reply_to for easy responding
+      replyTo: email, // Set the sender's email as reply_to for easy responding
     });
 
     if (error) {
