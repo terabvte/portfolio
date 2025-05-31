@@ -33,7 +33,7 @@ const PortfolioPage: React.FC = () => {
   //  };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 text-white bg-gradient-to-tl from-gray-800 via-gray-900 to-black">
+    <div className="flex flex-col items-center justify-center min-h-screen lg:p-4 text-white bg-gradient-to-tl from-gray-800 via-gray-900 to-black">
       <main className="flex flex-col items-center justify-center flex-grow text-center">
         {/* Hero Section */}
         <h1 className="mb-3 text-4xl font-extrabold sm:text-5xl md:text-7xl">
@@ -43,7 +43,7 @@ const PortfolioPage: React.FC = () => {
         </h1>
         <h1 className="mb-6 text-4xl font-extrabold sm:text-5xl md:text-7xl">
           a{" "}
-          <span className="inline-block p-4 pt-2 text-white bg-red-600 rounded-lg">
+          <span className="inline-block p-2 sm:p-4 sm:pt-2 text-white bg-red-600 rounded-lg">
             developer
           </span>
         </h1>

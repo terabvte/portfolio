@@ -167,7 +167,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         {/* Tags Wrapper: This div will always exist and have a min-height */}
         {/* Adjust min-h-[3.5rem] (56px) as needed for ~2 rows of tags. */}
         {/* This ensures the space for tags is consistent, pushing content below it uniformly. */}
-        <div className="min-h-[3.5rem]  flex flex-wrap gap-2 items-start">
+        <div className="min-h-[3.5rem] mb-4 2xl:mb-0 flex flex-wrap gap-2 items-start">
           {project.tags &&
             project.tags.slice(0, 5).map((tag) => {
               const style = tagStyles[tag] || defaultTagStyle;
