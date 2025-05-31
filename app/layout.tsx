@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const InterFont = Inter({
@@ -19,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${InterFont.variable} antialiased `}>{children}</body>
+      <body className={`${InterFont.variable} antialiased `}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
