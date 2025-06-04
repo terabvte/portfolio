@@ -33,6 +33,7 @@ export const projectsData: Project[] = [
     description: "University project made with 3 of my friends.",
     imageUrl: "/tetrafolio.png",
     githubUrl: "https://github.com/terabvte/tetrafolio",
+    websiteUrl: "https://tetrafolio.vercel.app/",
     tags: ["HTML", "Tailwind CSS", "JavaScript", "Python"],
   },
   {
