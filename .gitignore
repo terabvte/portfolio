@@ -43,7 +43,7 @@ next-env.d.ts
 # c# and rider bs
 ### .NET build ###
 bin/
-obj/
+/backend/obj/
 [Bb]uild/
 [Ll]og/
 [Rr]elease/
