@@ -1,14 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>P1X1_shortlinker</RootNamespace>
-    </PropertyGroup>
+      <UserSecretsId>a99e8d13-5c81-44a8-96a2-047df31efc7b</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.66" />
       <PackageReference Include="MinimalApis.Extensions" Version="0.11.0" />
+      <PackageReference Include="Npgsql" Version="9.0.3" />
     </ItemGroup>
 
 </Project>
