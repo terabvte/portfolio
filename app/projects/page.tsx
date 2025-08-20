@@ -1,22 +1,20 @@
 import React from "react";
-import Link from "next/link"; // For client-side navigation
-import { ArrowLeft } from "lucide-react"; // Icon for the back button
-import type { Metadata } from "next"; // For setting page metadata
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
 
-import { projectsData } from "@/data/projects"; // Import your project data
-import ProjectCard from "@/components/ProjectCard"; // Import the ProjectCard component
+import { projectsData } from "@/data/projects";
+import ProjectCard from "@/components/ProjectCard";
 
-// Set metadata for this page (title and description for SEO and browser tab)
 export const metadata: Metadata = {
   title: "Projects | Marco Fediuc",
   description:
-    "Explore a collection of web development projects by Marco Fediuc, showcasing skills in React, Next.js, Go, and more.",
+    "Explore a collection of web development projects by Marco Fediuc, showcasing skills in React, Next.js, .NET and more.",
 };
 
 const ProjectsPage: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen text-white bg-gradient-to-tl from-gray-800 via-gray-900 to-black">
-      {/* Header Section */}
       <header className="sticky top-0 z-50 shadow-md bg-gray-900/50 backdrop-blur-md">
         <div className="container px-4 mx-auto sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
@@ -35,17 +33,14 @@ const ProjectsPage: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Content Area */}
       <main className="container px-4 py-8 mx-auto sm:px-6 lg:px-8 sm:py-12">
         {projectsData.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 sm:gap-8">
-            {/* Map through the projectsData and render a ProjectCard for each project */}
             {projectsData.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
         ) : (
-          // Display a message if there are no projects to show
           <div className="flex flex-col items-center justify-center h-[50vh]">
             <p className="mb-4 text-xl text-gray-400">
               No projects to display at the moment.

@@ -1,4 +1,4 @@
-"use client"; // This component uses client-side interactivity (useState, form handling)
+"use client";
 
 import React, { useState, FormEvent } from "react";
 import Link from "next/link";
@@ -9,16 +9,6 @@ import {
   CheckCircle,
   AlertTriangle,
 } from "lucide-react";
-// import type { Metadata } from "next"; // Metadata should be defined in a server component or page.tsx directly if needed statically
-
-// If you need dynamic metadata based on client state, it's more complex.
-// For a static contact page, define metadata in a separate `page.tsx` or layout if this becomes purely client.
-// However, for App Router, this client component can be the main export of a page.tsx.
-
-// export const metadata: Metadata = { // Cannot export metadata from a "use client" component.
-//   title: "Contact Me | Marco Fediuc",
-//   description: "Get in touch with Marco Fediuc. Send a message through the contact form.",
-// };
 
 interface FormData {
   name: string;
@@ -197,19 +187,3 @@ const ContactPage: React.FC = () => {
 };
 
 export default ContactPage;
-
-// To set static metadata for this page, you would typically do it
-// in a `layout.tsx` or if `app/contact/page.tsx` was a Server Component.
-// If this `ContactPage` component is the default export of `app/contact/page.tsx`,
-// you can add metadata directly in that file as a Server Component would:
-//
-// export const metadata: Metadata = {
-//   title: "Contact Me | Marco Fediuc",
-//   description: "Get in touch with Marco Fediuc. Send a message through the contact form.",
-// };
-//
-// Then, make sure the ContactPage component itself is the default export.
-// For a "use client" component, you can't export metadata directly from it.
-// The best practice is to have `app/contact/page.tsx` be a server component
-// that imports and renders this client component, allowing metadata export from the server component.
-// For simplicity here, I've included the structure and noted metadata placement.

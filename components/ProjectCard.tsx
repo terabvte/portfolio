@@ -1,6 +1,12 @@
 import React, { JSX } from "react";
 import Image from "next/image";
-import { Github, ExternalLink, Tag as DefaultTagIcon } from "lucide-react";
+import {
+  Github,
+  ExternalLink,
+  Tag as DefaultTagIcon,
+  Database,
+  Layers,
+} from "lucide-react";
 import { Project } from "@/data/projects";
 
 import {
@@ -19,7 +25,10 @@ import {
   SiRust,
   SiDocker,
   SiGit,
+  SiDotnet,
+  SiPostgresql,
 } from "react-icons/si";
+import { TbBrandCSharp } from "react-icons/tb";
 import { VscJson } from "react-icons/vsc";
 
 interface TagStyle {
@@ -126,6 +135,36 @@ const tagStyles: Record<string, TagStyle> = {
     textColorClass: "text-orange-400",
     borderColorClass: "border-orange-600/30",
   },
+  "ASP.NET Core": {
+    icon: <SiDotnet size={14} />,
+    bgColorClass: "bg-purple-500/20",
+    textColorClass: "text-purple-300",
+    borderColorClass: "border-purple-500/30",
+  },
+  "C#": {
+    icon: <TbBrandCSharp size={14} />,
+    bgColorClass: "bg-green-600/20",
+    textColorClass: "text-green-400",
+    borderColorClass: "border-green-600/30",
+  },
+  PostgreSQL: {
+    icon: <SiPostgresql size={14} />,
+    bgColorClass: "bg-sky-700/20",
+    textColorClass: "text-sky-400",
+    borderColorClass: "border-sky-700/30",
+  },
+  Dapper: {
+    icon: <Database size={14} />,
+    bgColorClass: "bg-slate-500/20",
+    textColorClass: "text-slate-300",
+    borderColorClass: "border-slate-500/30",
+  },
+  "Full-Stack": {
+    icon: <Layers size={14} />,
+    bgColorClass: "bg-rose-500/20",
+    textColorClass: "text-rose-300",
+    borderColorClass: "border-rose-500/30",
+  },
 };
 
 const defaultTagStyle: TagStyle = {
@@ -159,14 +198,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         >
           {project.title}
         </h3>
-        {/* Description: min-h-[60px] and line-clamp-3 help stabilize its height */}
         <p className="flex-grow mb-4 text-sm text-gray-400">
           {project.description}
         </p>
 
-        {/* Tags Wrapper: This div will always exist and have a min-height */}
-        {/* Adjust min-h-[3.5rem] (56px) as needed for ~2 rows of tags. */}
-        {/* This ensures the space for tags is consistent, pushing content below it uniformly. */}
         <div className="min-h-[3.5rem] mb-4 2xl:mb-0 flex flex-wrap gap-2 items-start">
           {project.tags &&
             project.tags.slice(0, 5).map((tag) => {
@@ -186,7 +221,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             })}
         </div>
 
-        {/* Action Buttons: mt-auto will push this to the bottom of the flex-grow parent */}
         <div className="flex flex-col mt-auto space-y-3 sm:flex-row sm:space-y-0 sm:space-x-3">
           {project.githubUrl && (
             <a

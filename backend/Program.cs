@@ -5,6 +5,11 @@ using P1X1_shortlinker;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// --- Add these two lines for diagnostics ---
+Console.WriteLine($"Environment: {builder.Environment.EnvironmentName}");
+Console.WriteLine($"Connection String: {builder.Configuration.GetConnectionString("DefaultConnection")}");
+// -----------------------------------------
+
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {

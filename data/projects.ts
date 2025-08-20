@@ -1,12 +1,11 @@
-// Define the structure for a project
 export interface Project {
   id: string;
   title: string;
   description: string;
   imageUrl: string;
-  githubUrl?: string; // Optional: Link to the GitHub repository
-  websiteUrl?: string; // Optional: Link to the live website/demo
-  tags?: string[]; // Optional: Technologies or categories
+  githubUrl?: string;
+  websiteUrl?: string;
+  tags?: string[];
 }
 
 export const projectsData: Project[] = [
@@ -16,7 +15,7 @@ export const projectsData: Project[] = [
     description: "The very website you are looking at!",
     imageUrl: "/portfolio.png",
     githubUrl: "https://github.com/terabvte/portfolio",
-    websiteUrl: "https://marco.gl", // Example
+    websiteUrl: "https://marco.gl",
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
   },
   {
@@ -29,6 +28,21 @@ export const projectsData: Project[] = [
   },
   {
     id: "project-3",
+    title: "URL Shortener",
+    description:
+      "First full-stack app :)",
+    imageUrl: "/shortener.png",
+    githubUrl: "https://github.com/terabvte/portfolio",
+    websiteUrl: "/shortener",
+    tags: [
+      "ASP.NET Core",
+      "C#",
+      "Next.js",
+      "PostgreSQL",
+    ],
+  },
+  {
+    id: "project-4",
     title: "Tetrafolio Website",
     description: "University project made with 3 of my friends.",
     imageUrl: "/tetrafolio.png",
@@ -37,7 +51,7 @@ export const projectsData: Project[] = [
     tags: ["HTML", "Tailwind CSS", "JavaScript", "Python"],
   },
   {
-    id: "project-4",
+    id: "project-5",
     title: "Omnifood Concept Website",
     description: "A static website created with HTML and CSS.",
     imageUrl: "/omnifood.png",
@@ -46,7 +60,7 @@ export const projectsData: Project[] = [
     tags: ["HTML", "CSS", "JavaScript"],
   },
   {
-    id: "project-5",
+    id: "project-6",
     title: "Amazon Pokedex Website",
     description: "Capstone project for the SDE Amazon bootcamp.",
     imageUrl: "/pokedex.png",
@@ -55,7 +69,7 @@ export const projectsData: Project[] = [
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
   },
   {
-    id: "project-6",
+    id: "project-7",
     title: "Simple Password Generator",
     description: "Simple password generator that utilizes simple Javascript.",
     imageUrl: "/pw_gen.gif",
@@ -64,7 +78,7 @@ export const projectsData: Project[] = [
     tags: ["HTML", "Tailwind CSS", "JavaScript"],
   },
   {
-    id: "project-7",
+    id: "project-8",
     title: "Metric / Imperial Converter",
     description: "A two-way metric / imperial unit converter.",
     imageUrl: "/m-to-i_conv.gif",
