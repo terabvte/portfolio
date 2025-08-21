@@ -11,7 +11,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: myAllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("https://marco.gl", "http://localhost:3000")
+            policy.WithOrigins("https://marco.gl", "http://localhost:3000", "https://marcofolio-backend-eqcbccc3bcczfdds.francecentral-01.azurewebsites.net")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
