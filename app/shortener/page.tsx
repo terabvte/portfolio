@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   ArrowLeft,
   Loader2,
-  CheckCircle,
   AlertTriangle,
   ClipboardCopy,
   Link as LinkIcon,
@@ -59,9 +58,15 @@ export default function ShortenerPage() {
       setSubmissionStatus("success");
       setResult(data);
       setUrl("");
-    } catch (err: any) {
+    } catch (err: unknown) {
       setSubmissionStatus("error");
-      setFeedbackMessage(err.message);
+
+      // Narrow the error to get its message safely
+      if (err instanceof Error) {
+        setFeedbackMessage(err.message);
+      } else {
+        setFeedbackMessage("An unexpected error occurred.");
+      }
     }
   };
 
