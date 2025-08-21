@@ -91,3 +91,7 @@ artifacts/
 *.ipr
 *.iws
 
+bin/
+obj/
+out/
+
