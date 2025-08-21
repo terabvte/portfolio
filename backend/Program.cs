@@ -4,8 +4,8 @@ using Npgsql;
 using P1X1_shortlinker;
 
 var builder = WebApplication.CreateBuilder(args);
-
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: myAllowSpecificOrigins,
@@ -13,7 +13,9 @@ builder.Services.AddCors(options =>
         {
             policy
             .SetIsOriginAllowed(origin =>
+                // Allow both with and without www
                 origin == "https://marco.gl" ||
+                origin == "https://www.marco.gl" ||
                 origin == "http://localhost:3000" ||
                 origin.EndsWith(".vercel.app")
             )
@@ -22,12 +24,12 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
         });
 });
-builder.Services.AddProblemDetails();
 
+builder.Services.AddProblemDetails();
 var app = builder.Build();
 
+// CORS middleware should be one of the first middlewares
 app.UseCors(myAllowSpecificOrigins);
-
 
 var connectionString = app.Configuration.GetConnectionString("DefaultConnection");
 
@@ -36,11 +38,11 @@ try
     await using var connection = new NpgsqlConnection(connectionString);
     Console.WriteLine("Attempting to connect to database and initialize schema...");
     await connection.ExecuteAsync(@"
-                CREATE TABLE IF NOT EXISTS Links (
-                    ShortCode TEXT PRIMARY KEY,
-                    OriginalUrl TEXT NOT NULL
-                );
-            ");
+        CREATE TABLE IF NOT EXISTS Links (
+            ShortCode TEXT PRIMARY KEY,
+            OriginalUrl TEXT NOT NULL
+        );
+    ");
     Console.WriteLine("Database initialization successful.");
 }
 catch (Exception ex)
@@ -49,39 +51,35 @@ catch (Exception ex)
     return;
 }
 
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler();
 }
 
-
+// Add OPTIONS endpoint for preflight requests
+app.MapMethods("/", new[] { "OPTIONS" }, () => Results.Ok())
+    .RequireCors(myAllowSpecificOrigins);
 
 app.MapPost("/", async (HttpContext context, UrlModel url) =>
 {
     string shortCode;
-
     await using (var connection = new NpgsqlConnection(connectionString))
     {
         while (true)
         {
             // 1. generating a new code
             shortCode = GenerateRandomCode.Generate();
-
             // 2. then we check if it already exists in the database
             var existingCode = await connection.QuerySingleOrDefaultAsync<string>(
                 "SELECT ShortCode FROM Links WHERE ShortCode = @ShortCode",
                 new { ShortCode = shortCode });
-
             // 3. if it doesn't exist (null), break the loop
             if (string.IsNullOrEmpty(existingCode))
             {
                 break;
             }
-
             // 4. if it exists, loop again
         }
-
         // 5. with the unique code, insert it
         var newLink = new { ShortCode = shortCode, OriginalUrl = url.UrlLink };
         await connection.ExecuteAsync(
@@ -91,30 +89,27 @@ app.MapPost("/", async (HttpContext context, UrlModel url) =>
 
     var baseUrl = $"{context.Request.Scheme}://{context.Request.Host}";
     var shortUrl = $"{baseUrl}/{shortCode}";
-
     return Results.Created(shortUrl, new { shortUrl, originalUrl = url.UrlLink });
-}).WithParameterValidation();
-
+})
+.WithParameterValidation()
+.RequireCors(myAllowSpecificOrigins);
 
 app.MapGet("/{shortCode}", async (string shortCode) =>
 {
     string? originalUrl;
-
     await using (var connection = new NpgsqlConnection(connectionString))
     {
         originalUrl = await connection.QuerySingleOrDefaultAsync<string>(
             "SELECT OriginalUrl FROM Links WHERE ShortCode = @ShortCode",
             new { ShortCode = shortCode });
     }
-
     return !string.IsNullOrEmpty(originalUrl)
         ? Results.Redirect(originalUrl)
         : Results.NotFound();
-});
-
+})
+.RequireCors(myAllowSpecificOrigins);
 
 app.Run();
-
 
 public record UrlModel
 {
