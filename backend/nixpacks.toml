@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["dotnet-sdk_8", "dotnet-runtime_8"]
+
+[phases.build]
+cmds = ["dotnet restore", "dotnet publish -c Release -o out"]
+
+[start]
+cmd = "./out/P1X1-shortlinker"
