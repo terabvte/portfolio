@@ -5,11 +5,6 @@ using P1X1_shortlinker;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- Add these two lines for diagnostics ---
-Console.WriteLine($"Environment: {builder.Environment.EnvironmentName}");
-Console.WriteLine($"Connection String: {builder.Configuration.GetConnectionString("DefaultConnection")}");
-// -----------------------------------------
-
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
@@ -23,19 +18,28 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddProblemDetails();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var app = builder.Build();
 
-await using (var connection = new NpgsqlConnection(connectionString))
+var connectionString = app.Configuration.GetConnectionString("DefaultConnection");
+
+try
 {
+    await using var connection = new NpgsqlConnection(connectionString);
+    Console.WriteLine("Attempting to connect to database and initialize schema...");
     await connection.ExecuteAsync(@"
-        CREATE TABLE IF NOT EXISTS Links (
-            ShortCode TEXT PRIMARY KEY,
-            OriginalUrl TEXT NOT NULL
-        );
-    ");
+            CREATE TABLE IF NOT EXISTS Links (
+                ShortCode TEXT PRIMARY KEY,
+                OriginalUrl TEXT NOT NULL
+            );
+        ");
+    Console.WriteLine("Database initialization successful.");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"FATAL: Database initialization failed. {ex}");
+    return;
 }
 
-var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
@@ -106,5 +110,5 @@ app.Run();
 
 public record UrlModel
 {
-    [Required] [Url] public string UrlLink { get; init; } = null!;
+    [Required][Url] public string UrlLink { get; init; } = null!;
 }
