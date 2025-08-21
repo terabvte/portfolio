@@ -1,0 +1,31 @@
+# nixpacks.toml
+[phases.setup]
+# Use .NET 8 SDK explicitly
+commands = [
+  "echo 'Using .NET 8 SDK'",
+  "dotnet --version"
+]
+
+[phases.install]
+# Restore dependencies
+commands = [
+  "dotnet clean",             # remove old DLLs
+  "dotnet restore"            # restore packages
+]
+
+[phases.build]
+# Build your project
+commands = [
+  "dotnet build --no-restore -c Release"
+]
+
+[phases.start]
+# Publish and run
+commands = [
+  "dotnet publish -c Release -o out",
+  "dotnet out/P1X1-shortlinker.dll"   # replace with actual DLL name
+]
+
+[options]
+# Force Nixpacks to use the .NET 8 runtime
+runtime = "dotnet-sdk_8"
