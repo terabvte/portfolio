@@ -11,10 +11,15 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: myAllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("https://marco.gl", "http://localhost:3000", "https://marcofolio-backend-eqcbccc3bcczfdds.francecentral-01.azurewebsites.net")
-                .SetIsOriginAllowed(origin => new Uri(origin).Host.EndsWith("vercel.app"))
-                .AllowAnyHeader()
-                .AllowAnyMethod();
+            policy
+            .SetIsOriginAllowed(origin =>
+                origin == "https://marco.gl" ||
+                origin == "http://localhost:3000" ||
+                origin.EndsWith(".vercel.app")
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); // optional if you send cookies/auth
         });
 });
 builder.Services.AddProblemDetails();
