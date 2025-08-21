@@ -60,7 +60,7 @@ if (!app.Environment.IsDevelopment())
 app.MapMethods("/", new[] { "OPTIONS" }, () => Results.Ok())
     .RequireCors(myAllowSpecificOrigins);
 
-app.MapPost("/", async (HttpContext context, UrlModel url) =>
+app.MapPost("/", async (HttpContext context, UrlModel url, IConfiguration config) =>
 {
     string shortCode;
     await using (var connection = new NpgsqlConnection(connectionString))
@@ -87,8 +87,8 @@ app.MapPost("/", async (HttpContext context, UrlModel url) =>
             newLink);
     }
 
-    var baseUrl = $"{context.Request.Scheme}://{context.Request.Host}";
-    var shortUrl = $"{baseUrl}/{shortCode}";
+    var frontendDomain = config.GetValue<string>("FrontendDomain") ?? "https://marco.gl";
+    var shortUrl = $"{frontendDomain}/{shortCode}";
     return Results.Created(shortUrl, new { shortUrl, originalUrl = url.UrlLink });
 })
 .WithParameterValidation()
