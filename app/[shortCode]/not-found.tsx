@@ -8,7 +8,7 @@ export default function NotFound() {
         <AlertTriangle className="h-16 w-16 text-yellow-500 mx-auto mb-4" />
         <h1 className="text-3xl font-bold mb-2">Link Not Found</h1>
         <p className="text-gray-300 mb-6">
-          Sorry, this short link doesn't exist or may have expired.
+          Sorry, this short link doesn&#39;t exist or may have expired.
         </p>
         <Link
           href="/"

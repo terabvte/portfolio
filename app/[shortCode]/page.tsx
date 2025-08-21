@@ -1,14 +1,13 @@
+// app/[shortCode]/page.tsx
 import { redirect, notFound } from "next/navigation";
+import type { Metadata } from "next";
 
-interface PageProps {
-  params: {
-    shortCode: string;
-  };
-}
+type PageProps = {
+  params: Promise<{ shortCode: string }>;
+};
 
 async function getOriginalUrl(shortCode: string): Promise<string | null> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
   if (!apiUrl) {
     console.error("API URL not configured");
     return null;
@@ -22,9 +21,8 @@ async function getOriginalUrl(shortCode: string): Promise<string | null> {
       cache: "no-store",
     });
 
-    if (response.status === 302 || response.status === 301) {
-      const location = response.headers.get("Location");
-      return location;
+    if (response.status === 301 || response.status === 302) {
+      return response.headers.get("Location");
     }
 
     return null;
@@ -34,9 +32,33 @@ async function getOriginalUrl(shortCode: string): Promise<string | null> {
   }
 }
 
-export default async function ShortLinkRedirect({ params }: PageProps) {
-  const { shortCode } = params;
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { shortCode } = await params;
 
+  const originalUrl = await getOriginalUrl(shortCode);
+
+  return {
+    title: originalUrl
+      ? `Redirecting to ${originalUrl}`
+      : `Short link not found`,
+    description: originalUrl
+      ? `You are being redirected to ${originalUrl}`
+      : "Short link could not be found",
+    openGraph: {
+      title: originalUrl
+        ? `Redirecting to ${originalUrl}`
+        : "Short link not found",
+      description: originalUrl
+        ? `You are being redirected to ${originalUrl}`
+        : "Short link could not be found",
+    },
+  };
+}
+
+export default async function ShortLinkRedirect({ params }: PageProps) {
+  const { shortCode } = await params;
   const originalUrl = await getOriginalUrl(shortCode);
 
   if (originalUrl) {
@@ -44,4 +66,6 @@ export default async function ShortLinkRedirect({ params }: PageProps) {
   } else {
     notFound();
   }
+
+  return <div>Redirecting...</div>;
 }
