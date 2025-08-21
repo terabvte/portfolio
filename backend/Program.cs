@@ -12,6 +12,7 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy.WithOrigins("https://marco.gl", "http://localhost:3000", "https://marcofolio-backend-eqcbccc3bcczfdds.francecentral-01.azurewebsites.net")
+                .SetIsOriginAllowed(origin => new Uri(origin).Host.EndsWith("vercel.app"))
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
