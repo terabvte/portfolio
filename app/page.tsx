@@ -32,7 +32,7 @@ const PortfolioPage: React.FC = () => {
         <h1 className="mb-6 text-4xl font-extrabold sm:text-5xl md:text-7xl">
           a{" "}
           <span className="inline-block p-2 sm:p-4 sm:pt-2 text-white bg-red-600 rounded-lg">
-            developer
+            developer.
           </span>
         </h1>
 
