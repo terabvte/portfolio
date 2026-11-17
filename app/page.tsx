@@ -1,6 +1,8 @@
 import React from "react";
 import { Github, Briefcase, Code, Mail, Linkedin } from "lucide-react";
 
+// todo: update secrets from env variables
+
 interface NavLinkProps {
   href: string;
   icon?: React.ReactNode;
