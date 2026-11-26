@@ -44,7 +44,7 @@ export const projectsData: Project[] = [
     imageUrl: "/shortener.png",
     githubUrl: "https://github.com/terabvte/portfolio",
     websiteUrl: "/shortener",
-    tags: ["ASP.NET Core", "C#", "Next.js", "PostgreSQL"],
+    tags: ["ASP.NET Core", "C#", "Next.js", "PostgreSQL", "Dapper"],
   },
   {
     id: "project-4",

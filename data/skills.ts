@@ -15,6 +15,8 @@ import {
   SiGithubactions,
   SiDocker,
   SiOpenai,
+  SiHeroku,
+  SiPostgresql,
 } from "react-icons/si";
 import { TbBrandCSharp } from "react-icons/tb";
 import {
@@ -57,6 +59,7 @@ export const skillsData: SkillCategory[] = [
       { name: "EF Core", icon: Database, color: "#512BD4" },
       { name: "REST APIs", icon: Webhook, color: "#c58af9" },
       { name: "LINQ", icon: Layers, color: "#512BD4" },
+      { name: "Dapper", icon: Database, color: "#00AFF0" },
       { name: "MediatR", icon: Workflow, color: "#c58af9" },
       { name: "Python", icon: SiPython, color: "#3776AB" },
     ],
@@ -67,6 +70,7 @@ export const skillsData: SkillCategory[] = [
     skills: [
       { name: "SQL Server", icon: Database, color: "#CC2927" },
       { name: "Azure SQL", icon: Cloud, color: "#0078D4" },
+      { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
     ],
   },
   {
@@ -115,6 +119,9 @@ export const skillsData: SkillCategory[] = [
   {
     name: "Deployment & Hosting",
     icon: Rocket,
-    skills: [{ name: "Vercel", icon: SiVercel, color: "#FFFFFF" }],
+    skills: [
+      { name: "Vercel", icon: SiVercel, color: "#FFFFFF" },
+      { name: "Heroku", icon: SiHeroku, color: "#430098" },
+    ],
   },
 ];
