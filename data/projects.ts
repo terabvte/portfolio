@@ -2,7 +2,7 @@ export interface Project {
   id: string;
   title: string;
   description: string;
-  imageUrl: string;
+  imageUrl?: string;
   githubUrl?: string;
   websiteUrl?: string;
   tags?: string[];
@@ -10,9 +10,18 @@ export interface Project {
 
 export const projectsData: Project[] = [
   {
+    id: "autopreventivo",
+    title: "AutoPreventivo — Quote Engine",
+    description:
+      "Sanitized .NET case study of a production quote platform: the model parses intent, C# prices the work, PDFs are stored in Azure.",
+    githubUrl: "https://github.com/terabvte/quote-engine",
+    websiteUrl: "https://www.edilvos.it",
+    tags: ["C#", "ASP.NET Core", "Azure", "SQL Server", "Full-Stack"],
+  },
+  {
     id: "project-1",
     title: "My Portfolio Website",
-    description: "The very website you are looking at!",
+    description: "The site you are reading, built with Next.js and Tailwind CSS.",
     imageUrl: "/portfolio.png",
     githubUrl: "https://github.com/terabvte/portfolio",
     websiteUrl: "https://marco.gl",
@@ -21,7 +30,8 @@ export const projectsData: Project[] = [
   {
     id: "project-2",
     title: "Edilvos Website",
-    description: "Company website for Edilvos.",
+    description:
+      "Company website for a construction cooperative, including the public quote request flow.",
     imageUrl: "/edilvos.png",
     websiteUrl: "https://edilvos.it",
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
@@ -30,21 +40,16 @@ export const projectsData: Project[] = [
     id: "project-3",
     title: "URL Shortener",
     description:
-      "First full-stack app :)",
+      "Full-stack URL shortener with an ASP.NET Core backend and a Next.js frontend.",
     imageUrl: "/shortener.png",
     githubUrl: "https://github.com/terabvte/portfolio",
     websiteUrl: "/shortener",
-    tags: [
-      "ASP.NET Core",
-      "C#",
-      "Next.js",
-      "PostgreSQL",
-    ],
+    tags: ["ASP.NET Core", "C#", "Next.js", "PostgreSQL"],
   },
   {
     id: "project-4",
     title: "Tetrafolio Website",
-    description: "University project made with 3 of my friends.",
+    description: "Team project: a website built with three other developers.",
     imageUrl: "/tetrafolio.png",
     githubUrl: "https://github.com/terabvte/tetrafolio",
     websiteUrl: "https://tetrafolio.vercel.app/",
@@ -53,7 +58,8 @@ export const projectsData: Project[] = [
   {
     id: "project-5",
     title: "Omnifood Concept Website",
-    description: "A static website created with HTML and CSS.",
+    description:
+      "Static restaurant landing page built with HTML, CSS and JavaScript.",
     imageUrl: "/omnifood.png",
     githubUrl: "https://github.com/terabvte/omnifood",
     websiteUrl: "https://omnifood-tera.netlify.app/",
@@ -62,7 +68,7 @@ export const projectsData: Project[] = [
   {
     id: "project-6",
     title: "Amazon Pokedex Website",
-    description: "Capstone project for the SDE Amazon bootcamp.",
+    description: "Pokédex front end built during the Amazon SDE bootcamp.",
     imageUrl: "/pokedex.png",
     githubUrl: "https://github.com/terabvte/amazon-pokedex",
     websiteUrl: "https://amazon-pokedex.vercel.app",
@@ -71,7 +77,7 @@ export const projectsData: Project[] = [
   {
     id: "project-7",
     title: "Simple Password Generator",
-    description: "Simple password generator that utilizes simple Javascript.",
+    description: "Password generator built with vanilla JavaScript.",
     imageUrl: "/pw_gen.gif",
     githubUrl:
       "https://github.com/terabvte/web_learn?tab=readme-ov-file#password-generator",
@@ -83,7 +89,7 @@ export const projectsData: Project[] = [
     description: "A two-way metric / imperial unit converter.",
     imageUrl: "/m-to-i_conv.gif",
     githubUrl:
-      "https://github.com/terabvte/web_learn?tab=readme-ov-file#password-generator",
+      "https://github.com/terabvte/web_learn?tab=readme-ov-file#metric--imperial-converter",
     tags: ["HTML", "Tailwind CSS", "JavaScript"],
   },
 ];

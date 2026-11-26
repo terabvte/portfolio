@@ -6,6 +6,8 @@ import {
   Tag as DefaultTagIcon,
   Database,
   Layers,
+  Cloud,
+  FileCode,
 } from "lucide-react";
 import { Project } from "@/data/projects";
 
@@ -165,6 +167,18 @@ const tagStyles: Record<string, TagStyle> = {
     textColorClass: "text-rose-300",
     borderColorClass: "border-rose-500/30",
   },
+  Azure: {
+    icon: <Cloud size={14} />,
+    bgColorClass: "bg-blue-500/20",
+    textColorClass: "text-blue-300",
+    borderColorClass: "border-blue-500/30",
+  },
+  "SQL Server": {
+    icon: <Database size={14} />,
+    bgColorClass: "bg-red-500/20",
+    textColorClass: "text-red-300",
+    borderColorClass: "border-red-500/30",
+  },
 };
 
 const defaultTagStyle: TagStyle = {
@@ -182,13 +196,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
     <div className="flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-gray-800 shadow-xl group rounded-xl hover:shadow-2xl">
       <div className="relative w-full h-48 overflow-hidden sm:h-52 md:h-56">
-        <Image
-          src={project.imageUrl}
-          alt={`Screenshot of ${project.title}`}
-          layout="fill"
-          objectFit="cover"
-          className="transition-transform duration-500 ease-in-out group-hover:scale-110"
-        />
+        {project.imageUrl ? (
+          <Image
+            src={project.imageUrl}
+            alt={`Screenshot of ${project.title}`}
+            layout="fill"
+            objectFit="cover"
+            className="transition-transform duration-500 ease-in-out group-hover:scale-110"
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center w-full h-full bg-gradient-to-br from-gray-700 via-gray-800 to-black">
+            <FileCode size={44} className="mb-3 text-red-500" />
+            <span className="px-6 text-sm font-medium tracking-widest text-center text-gray-400 uppercase">
+              {project.title}
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col flex-grow p-5 sm:p-6">

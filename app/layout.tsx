@@ -9,8 +9,9 @@ const InterFont = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Marco Fediuc",
-  description: "Marco Fediuc's portfolio",
+  title: "Marco Fediuc — .NET Backend Developer",
+  description:
+    "Marco Fediuc — .NET backend developer working with C#, ASP.NET Core, EF Core and Azure. Projects, the AutoPreventivo case study and CV.",
 };
 
 export default function RootLayout({
