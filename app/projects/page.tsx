@@ -9,7 +9,7 @@ import ProjectCard from "@/components/ProjectCard";
 export const metadata: Metadata = {
   title: "Projects | Marco Fediuc",
   description:
-    "Explore a collection of web development projects by Marco Fediuc, showcasing skills in React, Next.js, .NET and more.",
+    "Selected .NET, backend and frontend projects by Marco Fediuc, including the AutoPreventivo quote-engine case study.",
 };
 
 const ProjectsPage: React.FC = () => {

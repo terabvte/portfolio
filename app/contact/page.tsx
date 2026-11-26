@@ -8,6 +8,10 @@ import {
   Loader2,
   CheckCircle,
   AlertTriangle,
+  Mail,
+  Linkedin,
+  Github,
+  FileDown,
 } from "lucide-react";
 
 interface FormData {
@@ -88,9 +92,44 @@ const ContactPage: React.FC = () => {
 
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex items-center justify-center">
         <div className="w-full max-w-2xl bg-gray-800/70 backdrop-blur-sm rounded-xl shadow-2xl p-6 sm:p-8 md:p-10">
-          <p className="text-center text-gray-300 mb-8 text-lg">
+          <p className="text-center text-gray-300 mb-6 text-lg">
             Have a question or want to work together? Fill out the form below.
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-8 text-sm">
+            <a
+              href="mailto:marcofediuc04@gmail.com"
+              className="inline-flex items-center gap-2 px-4 py-2 text-gray-300 transition-colors bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-gray-600 hover:text-white"
+            >
+              <Mail size={16} />
+              <span>Email</span>
+            </a>
+            <a
+              href="https://linkedin.com/in/marco-fediuc"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 text-gray-300 transition-colors bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-gray-600 hover:text-white"
+            >
+              <Linkedin size={16} />
+              <span>LinkedIn</span>
+            </a>
+            <a
+              href="https://github.com/terabvte"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 text-gray-300 transition-colors bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-gray-600 hover:text-white"
+            >
+              <Github size={16} />
+              <span>GitHub</span>
+            </a>
+            <a
+              href="/cv.pdf"
+              download="Marco_Fediuc_CV.pdf"
+              className="inline-flex items-center gap-2 px-4 py-2 text-gray-300 transition-colors bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-gray-600 hover:text-white"
+            >
+              <FileDown size={16} />
+              <span>CV</span>
+            </a>
+          </div>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label

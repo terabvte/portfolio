@@ -8,16 +8,16 @@ import {
   SiReact,
   SiNextdotjs,
   SiPython,
-  SiC,
   SiDotnet,
-  SiSelenium,
   SiGit,
   SiGithub,
   SiVercel,
+  SiGithubactions,
+  SiDocker,
+  SiOpenai,
   SiHeroku,
   SiPostgresql,
 } from "react-icons/si";
-import { FaJava, FaAws } from "react-icons/fa";
 import { TbBrandCSharp } from "react-icons/tb";
 import {
   LucideIcon,
@@ -27,6 +27,13 @@ import {
   GitFork,
   Rocket,
   Database,
+  Layers,
+  Server,
+  Webhook,
+  Workflow,
+  Activity,
+  FlaskConical,
+  ScrollText,
 } from "lucide-react";
 
 export interface Skill {
@@ -43,6 +50,52 @@ export interface SkillCategory {
 
 export const skillsData: SkillCategory[] = [
   {
+    name: "Backend Development",
+    icon: Brain,
+    skills: [
+      { name: "C#", icon: TbBrandCSharp, color: "#239120" },
+      { name: ".NET", icon: SiDotnet, color: "#512BD4" },
+      { name: "ASP.NET Core", icon: Server, color: "#512BD4" },
+      { name: "EF Core", icon: Database, color: "#512BD4" },
+      { name: "REST APIs", icon: Webhook, color: "#c58af9" },
+      { name: "LINQ", icon: Layers, color: "#512BD4" },
+      { name: "Dapper", icon: Database, color: "#00AFF0" },
+      { name: "MediatR", icon: Workflow, color: "#c58af9" },
+      { name: "Python", icon: SiPython, color: "#3776AB" },
+    ],
+  },
+  {
+    name: "Data",
+    icon: Database,
+    skills: [
+      { name: "SQL Server", icon: Database, color: "#CC2927" },
+      { name: "Azure SQL", icon: Cloud, color: "#0078D4" },
+      { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+    ],
+  },
+  {
+    name: "Cloud & DevOps",
+    icon: Cloud,
+    skills: [
+      { name: "Azure", icon: Cloud, color: "#0078D4" },
+      { name: "Azure App Service", icon: Server, color: "#0078D4" },
+      { name: "GitHub Actions", icon: SiGithubactions, color: "#2088FF" },
+      { name: "Docker", icon: SiDocker, color: "#2496ED" },
+      { name: "OpenAI API", icon: SiOpenai, color: "#412991" },
+      { name: "Application Insights", icon: Activity, color: "#0078D4" },
+      { name: "Serilog", icon: ScrollText, color: "#e8701a" },
+    ],
+  },
+  {
+    name: "Testing & Quality",
+    icon: FlaskConical,
+    skills: [
+      { name: "xUnit", icon: FlaskConical, color: "#512BD4" },
+      { name: "Moq", icon: FlaskConical, color: "#6DB33F" },
+      { name: "WebApplicationFactory", icon: FlaskConical, color: "#c58af9" },
+    ],
+  },
+  {
     name: "Frontend Development",
     icon: Code,
     skills: [
@@ -54,24 +107,6 @@ export const skillsData: SkillCategory[] = [
       { name: "React", icon: SiReact, color: "#61DAFB" },
       { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
     ],
-  },
-  {
-    name: "Backend Development",
-    icon: Brain,
-    skills: [
-      { name: "Python", icon: SiPython, color: "#3776AB" },
-      { name: "C", icon: SiC, color: "#A8B9CC" },
-      { name: "Java", icon: FaJava, color: "#007396" },
-      { name: "C#", icon: TbBrandCSharp, color: "#239120" },
-      { name: ".NET", icon: SiDotnet, color: "#c58af9" },
-      { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
-      { name: "Dapper", icon: Database, color: "#00AFF0" },
-    ],
-  },
-  {
-    name: "Automation & Testing",
-    icon: SiSelenium,
-    skills: [{ name: "Selenium", icon: SiSelenium, color: "#43B02A" }],
   },
   {
     name: "Version Control",
@@ -86,12 +121,7 @@ export const skillsData: SkillCategory[] = [
     icon: Rocket,
     skills: [
       { name: "Vercel", icon: SiVercel, color: "#FFFFFF" },
-      { name: "Heroku", icon: SiHeroku, color: "#c58af9" },
+      { name: "Heroku", icon: SiHeroku, color: "#430098" },
     ],
-  },
-  {
-    name: "Cloud Platforms",
-    icon: Cloud,
-    skills: [{ name: "AWS", icon: FaAws, color: "#FF9900" }],
   },
 ];

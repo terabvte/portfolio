@@ -7,7 +7,7 @@ import { skillsData, SkillCategory, Skill } from "@/data/skills"; // Adjust path
 export const metadata: Metadata = {
   title: "Skills | Marco Fediuc",
   description:
-    "A showcase of Marco Fediuc's technical skills in web development, cloud, and more.",
+    "Marco Fediuc's backend, cloud, testing and frontend skills: C#, .NET, ASP.NET Core, EF Core, Azure and SQL Server.",
 };
 
 const SkillPill: React.FC<{ skill: Skill }> = ({ skill }) => {
