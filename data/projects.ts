@@ -1,95 +1,142 @@
 export interface Project {
   id: string;
   title: string;
+  subtitle?: string;
   description: string;
   imageUrl?: string;
   githubUrl?: string;
+  githubLabel?: string;
   websiteUrl?: string;
-  tags?: string[];
+  websiteLabel?: string;
+  tags: string[];
+  tier: "flagship" | "core" | "earlier";
+  status?: string;
+  statusTone?: "emerald" | "violet" | "sky" | "amber" | "slate";
 }
 
-export const projectsData: Project[] = [
+export const featuredProjects: Project[] = [
   {
     id: "autopreventivo",
-    title: "AutoPreventivo — Quote Engine",
+    title: "AutoPreventivo - Quote Engine",
+    subtitle: "Neuro-symbolic production platform @ Edilvos",
     description:
-      "Sanitized .NET case study of a production quote platform: the model parses intent, C# prices the work, PDFs are stored in Azure.",
+      "Sole developer of a production .NET 10 quote engine that turns free-text Italian renovation requests into itemised quotes across six renovation types. OpenAI parses intent; deterministic C# recipes and a price catalogue compute every total; unmatched lines receive a labelled estimate.",
     githubUrl: "https://github.com/terabvte/quote-engine",
+    githubLabel: "Case Study",
     websiteUrl: "https://www.edilvos.it",
-    tags: ["C#", "ASP.NET Core", "Azure", "SQL Server", "Full-Stack"],
+    websiteLabel: "Live Product",
+    tags: ["C#", ".NET 10", "ASP.NET Core", "EF Core", "Azure", "SQL Server"],
+    tier: "flagship",
+    status: "Production · Case Study",
+    statusTone: "violet",
   },
   {
-    id: "project-1",
-    title: "My Portfolio Website",
-    description: "The site you are reading, built with Next.js and Tailwind CSS.",
+    id: "edilvos-website",
+    title: "Edilvos Website",
+    subtitle: "Public storefront, quote form & admin dashboard",
+    description:
+      "Production Next.js frontend for a construction cooperative (20+ workers), connecting visitors to the AutoPreventivo quote flow and operators to the CreaTivo manual quote builder.",
+    imageUrl: "/edilvos.png",
+    websiteUrl: "https://www.edilvos.it",
+    websiteLabel: "Visit edilvos.it",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    tier: "core",
+    status: "Live · Private Source",
+    statusTone: "emerald",
+  },
+  {
+    id: "portfolio-website",
+    title: "Portfolio - marco.gl",
+    subtitle: "Personal engineering site & interactive showcase",
+    description:
+      "This site: built with Next.js 15 App Router, React 19, TypeScript, Tailwind CSS 4, keyboard command palette, and Resend contact integration.",
     imageUrl: "/portfolio.png",
     githubUrl: "https://github.com/terabvte/portfolio",
-    websiteUrl: "https://marco.gl",
-    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+    githubLabel: "Source Code",
+    websiteUrl: "https://www.marco.gl",
+    websiteLabel: "marco.gl",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    tier: "core",
+    status: "Open Source",
+    statusTone: "sky",
   },
+];
+
+export const earlierProjects: Project[] = [
   {
-    id: "project-2",
-    title: "Edilvos Website",
-    description:
-      "Company website for a construction cooperative, including the public quote request flow.",
-    imageUrl: "/edilvos.png",
-    websiteUrl: "https://edilvos.it",
-    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
-  },
-  {
-    id: "project-3",
+    id: "url-shortener",
     title: "URL Shortener",
+    subtitle: "Full-stack ASP.NET Core + PostgreSQL + Dapper",
     description:
-      "Full-stack URL shortener with an ASP.NET Core backend and a Next.js frontend.",
+      "Full-stack link shortener with an ASP.NET Core Web API, PostgreSQL + Dapper persistence, and a Next.js UI. Note: its Azure App Service backend is currently offline pending maintenance.",
     imageUrl: "/shortener.png",
     githubUrl: "https://github.com/terabvte/portfolio",
+    githubLabel: "Source",
     websiteUrl: "/shortener",
-    tags: ["ASP.NET Core", "C#", "Next.js", "PostgreSQL", "Dapper"],
+    websiteLabel: "Open UI",
+    tags: ["ASP.NET Core", "C#", "PostgreSQL", "Dapper", "Next.js"],
+    tier: "earlier",
+    status: "Backend Offline",
+    statusTone: "amber",
   },
   {
-    id: "project-4",
+    id: "tetrafolio",
     title: "Tetrafolio Website",
-    description: "Team project: a website built with three other developers.",
+    description: "Team project: a collaborative website built with three other developers.",
     imageUrl: "/tetrafolio.png",
     githubUrl: "https://github.com/terabvte/tetrafolio",
     websiteUrl: "https://tetrafolio.vercel.app/",
     tags: ["HTML", "Tailwind CSS", "JavaScript", "Python"],
+    tier: "earlier",
+    status: "Team Project",
+    statusTone: "slate",
   },
   {
-    id: "project-5",
+    id: "omnifood",
     title: "Omnifood Concept Website",
-    description:
-      "Static restaurant landing page built with HTML, CSS and JavaScript.",
+    description: "Responsive restaurant landing page built with semantic HTML, CSS, and vanilla JavaScript.",
     imageUrl: "/omnifood.png",
     githubUrl: "https://github.com/terabvte/omnifood",
     websiteUrl: "https://omnifood-tera.netlify.app/",
     tags: ["HTML", "CSS", "JavaScript"],
+    tier: "earlier",
+    status: "Learning",
+    statusTone: "slate",
   },
   {
-    id: "project-6",
-    title: "Amazon Pokedex Website",
-    description: "Pokédex front end built during the Amazon SDE bootcamp.",
+    id: "amazon-pokedex",
+    title: "Amazon Pokédex Website",
+    description: "Pokédex frontend built during the Amazon SDE bootcamp with Next.js and TypeScript.",
     imageUrl: "/pokedex.png",
     githubUrl: "https://github.com/terabvte/amazon-pokedex",
     websiteUrl: "https://amazon-pokedex.vercel.app",
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+    tier: "earlier",
+    status: "Bootcamp",
+    statusTone: "slate",
   },
   {
-    id: "project-7",
+    id: "password-generator",
     title: "Simple Password Generator",
-    description: "Password generator built with vanilla JavaScript.",
+    description: "Client-side random password generator built with vanilla JavaScript and Tailwind CSS.",
     imageUrl: "/pw_gen.gif",
-    githubUrl:
-      "https://github.com/terabvte/web_learn?tab=readme-ov-file#password-generator",
+    githubUrl: "https://github.com/terabvte/web_learn?tab=readme-ov-file#password-generator",
     tags: ["HTML", "Tailwind CSS", "JavaScript"],
+    tier: "earlier",
+    status: "Learning",
+    statusTone: "slate",
   },
   {
-    id: "project-8",
+    id: "metric-imperial-converter",
     title: "Metric / Imperial Converter",
-    description: "A two-way metric / imperial unit converter.",
+    description: "Two-way metric and imperial unit converter built while learning frontend fundamentals.",
     imageUrl: "/m-to-i_conv.gif",
-    githubUrl:
-      "https://github.com/terabvte/web_learn?tab=readme-ov-file#metric--imperial-converter",
+    githubUrl: "https://github.com/terabvte/web_learn?tab=readme-ov-file#metric--imperial-converter",
     tags: ["HTML", "Tailwind CSS", "JavaScript"],
+    tier: "earlier",
+    status: "Learning",
+    statusTone: "slate",
   },
 ];
+
+export const projectsData: Project[] = [...featuredProjects, ...earlierProjects];

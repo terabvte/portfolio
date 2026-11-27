@@ -1,18 +1,20 @@
 "use client";
 
 import React, { useState, FormEvent } from "react";
-import Link from "next/link";
 import {
-  ArrowLeft,
   Send,
   Loader2,
-  CheckCircle,
+  CheckCircle2,
   AlertTriangle,
   Mail,
   Linkedin,
   Github,
   FileDown,
+  Copy,
+  Check,
+  ArrowUpRight,
 } from "lucide-react";
+import SpotlightCard from "@/components/SpotlightCard";
 
 interface FormData {
   name: string;
@@ -22,7 +24,7 @@ interface FormData {
 
 type SubmissionStatus = "idle" | "loading" | "success" | "error";
 
-const ContactPage: React.FC = () => {
+export default function ContactPage() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -31,12 +33,22 @@ const ContactPage: React.FC = () => {
   const [submissionStatus, setSubmissionStatus] =
     useState<SubmissionStatus>("idle");
   const [feedbackMessage, setFeedbackMessage] = useState<string>("");
+  const [copied, setCopied] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCopyEmail = () => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText("marcofediuc04@gmail.com").then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -56,85 +68,123 @@ const ContactPage: React.FC = () => {
       if (response.ok && result.success) {
         setSubmissionStatus("success");
         setFeedbackMessage(result.message || "Message sent successfully!");
-        setFormData({ name: "", email: "", message: "" }); // Clear form
+        setFormData({ name: "", email: "", message: "" });
       } else {
         setSubmissionStatus("error");
         setFeedbackMessage(
           result.error || "Failed to send message. Please try again."
         );
       }
-    } catch (error) {
+    } catch {
       setSubmissionStatus("error");
       setFeedbackMessage("An unexpected error occurred. Please try again.");
-      console.error("Form submission error:", error);
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-tl from-gray-800 via-gray-900 to-black text-white">
-      <header className="sticky top-0 z-50 bg-gray-900/60 backdrop-blur-lg shadow-lg">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
-              Contact Me
-            </h1>
-            <Link
-              href="/"
-              className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg transition-colors duration-200 text-xs sm:text-sm font-medium"
-              aria-label="Back to Home page"
-            >
-              <ArrowLeft size={18} />
-              <span>Back to Home</span>
-            </Link>
-          </div>
-        </div>
+    <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
+      <header className="max-w-2xl">
+        <p className="font-mono text-xs font-semibold tracking-wider text-violet-300 uppercase">
+          Contact
+        </p>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          Get in touch
+        </h1>
+        <p className="mt-3 text-sm leading-relaxed text-slate-400 sm:text-base">
+          Reach out directly by email, LinkedIn, or the form below.
+        </p>
       </header>
 
-      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex items-center justify-center">
-        <div className="w-full max-w-2xl bg-gray-800/70 backdrop-blur-sm rounded-xl shadow-2xl p-6 sm:p-8 md:p-10">
-          <p className="text-center text-gray-300 mb-6 text-lg">
-            Have a question or want to work together? Fill out the form below.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-8 text-sm">
-            <a
-              href="mailto:marcofediuc04@gmail.com"
-              className="inline-flex items-center gap-2 px-4 py-2 text-gray-300 transition-colors bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-gray-600 hover:text-white"
-            >
-              <Mail size={16} />
-              <span>Email</span>
-            </a>
-            <a
-              href="https://linkedin.com/in/marco-fediuc"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 text-gray-300 transition-colors bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-gray-600 hover:text-white"
-            >
-              <Linkedin size={16} />
-              <span>LinkedIn</span>
-            </a>
-            <a
-              href="https://github.com/terabvte"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 text-gray-300 transition-colors bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-gray-600 hover:text-white"
-            >
-              <Github size={16} />
-              <span>GitHub</span>
-            </a>
-            <a
-              href="/cv.pdf"
-              download="Marco_Fediuc_CV.pdf"
-              className="inline-flex items-center gap-2 px-4 py-2 text-gray-300 transition-colors bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-gray-600 hover:text-white"
-            >
-              <FileDown size={16} />
-              <span>CV</span>
-            </a>
-          </div>
-          <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
+        {/* Direct Channels */}
+        <div className="space-y-4 lg:col-span-5">
+          <SpotlightCard className="p-6">
+            <h2 className="text-sm font-semibold text-white">Direct links</h2>
+            <p className="mt-1 text-xs text-slate-400">
+              Fastest ways to reach me or review my work.
+            </p>
+
+            <div className="mt-5 space-y-2.5">
+              <div className="flex items-center justify-between gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-3.5 py-3">
+                <a
+                  href="mailto:marcofediuc04@gmail.com"
+                  className="flex min-w-0 items-center gap-2.5 text-xs font-medium text-slate-200 hover:text-white"
+                >
+                  <Mail size={15} className="shrink-0 text-violet-300" />
+                  <span className="truncate font-mono">
+                    marcofediuc04@gmail.com
+                  </span>
+                </a>
+                <button
+                  type="button"
+                  onClick={handleCopyEmail}
+                  aria-label="Copy email address"
+                  className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-white/[0.08] bg-white/[0.04] px-2 py-1 font-mono text-[11px] text-slate-300 transition-colors hover:bg-white/[0.1] hover:text-white"
+                >
+                  {copied ? (
+                    <>
+                      <Check size={12} className="text-emerald-400" />
+                      <span>Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={12} />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <a
+                href="https://www.linkedin.com/in/marco-fediuc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between rounded-xl border border-white/[0.08] bg-white/[0.03] px-3.5 py-3 text-xs font-medium text-slate-200 transition-colors hover:border-white/[0.18] hover:bg-white/[0.06] hover:text-white"
+              >
+                <span className="flex items-center gap-2.5">
+                  <Linkedin size={15} className="text-sky-400" />
+                  <span>LinkedIn</span>
+                </span>
+                <ArrowUpRight size={14} className="text-slate-500" />
+              </a>
+
+              <a
+                href="https://github.com/terabvte"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between rounded-xl border border-white/[0.08] bg-white/[0.03] px-3.5 py-3 text-xs font-medium text-slate-200 transition-colors hover:border-white/[0.18] hover:bg-white/[0.06] hover:text-white"
+              >
+                <span className="flex items-center gap-2.5">
+                  <Github size={15} className="text-slate-300" />
+                  <span>GitHub (@terabvte)</span>
+                </span>
+                <ArrowUpRight size={14} className="text-slate-500" />
+              </a>
+
+              <a
+                href="/cv.pdf"
+                download="Marco_Fediuc_CV.pdf"
+                className="flex items-center justify-between rounded-xl border border-violet-500/35 bg-violet-500/10 px-3.5 py-3 text-xs font-semibold text-violet-100 transition-colors hover:border-violet-400/60 hover:bg-violet-500/20 hover:text-white"
+              >
+                <span className="flex items-center gap-2.5">
+                  <FileDown size={15} className="text-violet-300" />
+                  <span>Download CV (PDF)</span>
+                </span>
+                <span className="font-mono text-[11px] text-violet-300">
+                  1 page A4
+                </span>
+              </a>
+            </div>
+          </SpotlightCard>
+        </div>
+
+        {/* Contact Form */}
+        <SpotlightCard className="p-6 sm:p-8 lg:col-span-7">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-300 mb-1"
+                className="mb-1.5 block text-xs font-medium text-slate-300"
               >
                 Full Name
               </label>
@@ -145,14 +195,16 @@ const ContactPage: React.FC = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2.5 bg-gray-700/50 border border-gray-600 rounded-lg text-gray-100 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition-colors"
-                placeholder="Your Name"
+                autoComplete="name"
+                placeholder="Your name"
+                className="w-full rounded-xl border border-white/[0.1] bg-[#090c12] px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 transition-colors focus:border-violet-400/70 focus:ring-2 focus:ring-violet-500/25 focus:outline-none"
               />
             </div>
+
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-300 mb-1"
+                className="mb-1.5 block text-xs font-medium text-slate-300"
               >
                 Email Address
               </label>
@@ -163,14 +215,16 @@ const ContactPage: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2.5 bg-gray-700/50 border border-gray-600 rounded-lg text-gray-100 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition-colors"
-                placeholder="you@example.com"
+                autoComplete="email"
+                placeholder="you@company.com"
+                className="w-full rounded-xl border border-white/[0.1] bg-[#090c12] px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 transition-colors focus:border-violet-400/70 focus:ring-2 focus:ring-violet-500/25 focus:outline-none"
               />
             </div>
+
             <div>
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-gray-300 mb-1"
+                className="mb-1.5 block text-xs font-medium text-slate-300"
               >
                 Message
               </label>
@@ -181,48 +235,47 @@ const ContactPage: React.FC = () => {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2.5 bg-gray-700/50 border border-gray-600 rounded-lg text-gray-100 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition-colors"
-                placeholder="Your message here..."
+                placeholder="Tell me about the role or project..."
+                className="w-full rounded-xl border border-white/[0.1] bg-[#090c12] px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 transition-colors focus:border-violet-400/70 focus:ring-2 focus:ring-violet-500/25 focus:outline-none"
               />
             </div>
-            <div>
-              <button
-                type="submit"
-                disabled={submissionStatus === "loading"}
-                className="w-full flex items-center justify-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed group"
-              >
-                {submissionStatus === "loading" ? (
-                  <Loader2 className="animate-spin h-5 w-5 mr-2" />
-                ) : (
-                  <Send className="h-5 w-5 mr-2 transform transition-transform duration-300 group-hover:translate-x-1" />
-                )}
+
+            <button
+              type="submit"
+              disabled={submissionStatus === "loading"}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-violet-400/50 bg-violet-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {submissionStatus === "loading" ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Send className="h-4 w-4" />
+              )}
+              <span>
                 {submissionStatus === "loading" ? "Sending..." : "Send Message"}
-              </button>
-            </div>
+              </span>
+            </button>
           </form>
 
           {feedbackMessage && submissionStatus !== "loading" && (
             <div
-              className={`mt-6 p-4 rounded-lg text-sm flex items-center ${
+              role="status"
+              aria-live="polite"
+              className={`mt-5 flex items-center gap-2.5 rounded-xl border p-4 text-xs font-medium ${
                 submissionStatus === "success"
-                  ? "bg-green-500/20 text-green-300 border border-green-500/30"
-                  : "bg-red-500/20 text-red-300 border border-red-500/30"
+                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-200"
+                  : "border-red-500/30 bg-red-500/10 text-red-200"
               }`}
             >
               {submissionStatus === "success" ? (
-                <CheckCircle className="h-5 w-5 mr-2 shrink-0" />
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
               ) : (
-                <AlertTriangle className="h-5 w-5 mr-2 shrink-0" />
+                <AlertTriangle className="h-4 w-4 shrink-0 text-red-400" />
               )}
-              {feedbackMessage}
+              <span>{feedbackMessage}</span>
             </div>
           )}
-        </div>
-      </main>
-
-
+        </SpotlightCard>
+      </div>
     </div>
   );
-};
-
-export default ContactPage;
+}

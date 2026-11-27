@@ -8,7 +8,9 @@ import {
   AlertTriangle,
   ClipboardCopy,
   Link as LinkIcon,
+  Info,
 } from "lucide-react";
+import SpotlightCard from "@/components/SpotlightCard";
 
 interface ShortenResponse {
   shortUrl: string;
@@ -60,8 +62,6 @@ export default function ShortenerPage() {
       setUrl("");
     } catch (err: unknown) {
       setSubmissionStatus("error");
-
-      // Narrow the error to get its message safely
       if (err instanceof Error) {
         setFeedbackMessage(err.message);
       } else {
@@ -83,97 +83,111 @@ export default function ShortenerPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-tl from-gray-800 via-gray-900 to-black text-white">
-      <header className="sticky top-0 z-50 bg-gray-900/60 backdrop-blur-lg shadow-lg">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
-              URL Shortener
-            </h1>
-            <Link
-              href="/projects"
-              className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg transition-colors duration-200 text-xs sm:text-sm font-medium"
-              aria-label="Back to Projects page"
-            >
-              <ArrowLeft size={18} />
-              <span>Back to Projects</span>
-            </Link>
-          </div>
-        </div>
+    <div className="mx-auto max-w-2xl px-4 py-14 sm:px-6 sm:py-20">
+      <Link
+        href="/projects"
+        className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 transition-colors hover:text-white"
+      >
+        <ArrowLeft size={14} />
+        <span>Back to Projects</span>
+      </Link>
+
+      <header className="mt-5">
+        <p className="font-mono text-xs font-semibold tracking-wider text-sky-300 uppercase">
+          ASP.NET Core + PostgreSQL + Dapper
+        </p>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-white">
+          URL Shortener
+        </h1>
+        <p className="mt-2 text-sm text-slate-400">
+          Create a compact link from a long URL.
+        </p>
       </header>
 
-      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex items-center justify-center">
-        <div className="w-full max-w-2xl bg-gray-800/70 backdrop-blur-sm rounded-xl shadow-2xl p-6 sm:p-8 md:p-10">
-          <p className="text-center text-gray-300 mb-8 text-lg">
-            Create a compact link from a long URL :]
-          </p>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="url" className="sr-only">
-                Long URL
-              </label>
-              <input
-                type="url"
-                name="url"
-                id="url"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                required
-                className="w-full px-4 py-2.5 bg-gray-700/50 border border-gray-600 rounded-lg text-gray-100 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition-colors"
-                placeholder="https://your-very-long-url.com/goes-here"
-              />
-            </div>
-            <div>
-              <button
-                type="submit"
-                disabled={submissionStatus === "loading"}
-                className="w-full flex items-center justify-center px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed group"
+      <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs leading-relaxed text-amber-200">
+        <Info size={16} className="mt-0.5 shrink-0 text-amber-400" />
+        <span>
+          Note: the companion Azure App Service backend is currently offline
+          pending maintenance, so link creation requests may fail until it is
+          re-enabled.
+        </span>
+      </div>
+
+      <SpotlightCard className="mt-6 p-6 sm:p-8">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label
+              htmlFor="url"
+              className="mb-1.5 block text-xs font-medium text-slate-300"
+            >
+              Destination URL
+            </label>
+            <input
+              type="url"
+              name="url"
+              id="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              required
+              placeholder="https://example.com/long-url"
+              className="w-full rounded-xl border border-white/[0.1] bg-[#090c12] px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 transition-colors focus:border-sky-400/70 focus:ring-2 focus:ring-sky-500/25 focus:outline-none"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={submissionStatus === "loading"}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-sky-400/50 bg-sky-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-sky-500 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {submissionStatus === "loading" ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <LinkIcon className="h-4 w-4" />
+            )}
+            <span>
+              {submissionStatus === "loading"
+                ? "Creating Link..."
+                : "Shorten URL"}
+            </span>
+          </button>
+        </form>
+
+        {submissionStatus === "error" && feedbackMessage && (
+          <div
+            role="alert"
+            className="mt-5 flex items-center gap-2.5 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-xs text-red-200"
+          >
+            <AlertTriangle className="h-4 w-4 shrink-0 text-red-400" />
+            <span>{feedbackMessage}</span>
+          </div>
+        )}
+
+        {submissionStatus === "success" && result && (
+          <div className="mt-5 space-y-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+            <div className="flex items-center justify-between gap-3 rounded-lg bg-[#090c12] p-3">
+              <a
+                href={result.shortUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-sm break-all text-sky-300 hover:underline"
               >
-                {submissionStatus === "loading" ? (
-                  <Loader2 className="animate-spin h-5 w-5 mr-2" />
-                ) : (
-                  <LinkIcon className="h-5 w-5 mr-2" />
-                )}
-                {submissionStatus === "loading"
-                  ? "Creating Link..."
-                  : "Shorten URL"}
+                {result.shortUrl}
+              </a>
+              <button
+                type="button"
+                onClick={handleCopyToClipboard}
+                aria-label="Copy shortened URL"
+                className="shrink-0 rounded-lg border border-white/[0.1] bg-white/[0.05] p-2 text-slate-200 transition-colors hover:bg-white/[0.12]"
+              >
+                <ClipboardCopy size={15} />
               </button>
             </div>
-          </form>
-
-          {submissionStatus === "error" && feedbackMessage && (
-            <div className="mt-6 p-4 rounded-lg text-sm flex items-center bg-red-500/20 text-red-300 border border-red-500/30">
-              <AlertTriangle className="h-5 w-5 mr-2 shrink-0" />
-              {feedbackMessage}
-            </div>
-          )}
-
-          {submissionStatus === "success" && result && (
-            <div className="mt-6 p-4 space-y-3 text-center bg-green-500/10 border border-green-500/20 rounded-lg">
-              <div className="flex items-center justify-between p-3 bg-gray-900/50 rounded-md">
-                <a
-                  href={result.shortUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-lg font-mono text-sky-400 hover:underline break-all"
-                >
-                  {result.shortUrl}
-                </a>
-                <button
-                  onClick={handleCopyToClipboard}
-                  className="ml-4 px-3 py-1 text-sm bg-gray-600 hover:bg-gray-500 rounded-md transition-colors"
-                  title="Copy to clipboard"
-                >
-                  <ClipboardCopy size={16} />
-                </button>
-              </div>
-              {feedbackMessage && (
-                <p className="text-xs text-green-400">{feedbackMessage}</p>
-              )}
-            </div>
-          )}
-        </div>
-      </main>
+            {feedbackMessage && (
+              <p className="text-xs text-emerald-300">{feedbackMessage}</p>
+            )}
+          </div>
+        )}
+      </SpotlightCard>
     </div>
   );
 }

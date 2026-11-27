@@ -1,89 +1,107 @@
 import React from "react";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
-import { skillsData, SkillCategory, Skill } from "@/data/skills"; // Adjust path if necessary
+import { skillsData, SkillCategory } from "@/data/skills";
+import SpotlightCard from "@/components/SpotlightCard";
 
 export const metadata: Metadata = {
-  title: "Skills | Marco Fediuc",
+  title: "Skills",
   description:
-    "Marco Fediuc's backend, cloud, testing and frontend skills: C#, .NET, ASP.NET Core, EF Core, Azure and SQL Server.",
+    "Marco Fediuc's backend, data, cloud, testing, and frontend engineering stack: C#, .NET 10, ASP.NET Core, EF Core, Azure, SQL Server, and Next.js.",
 };
 
-const SkillPill: React.FC<{ skill: Skill }> = ({ skill }) => {
-  const IconComponent = skill.icon;
-  return (
-    <div className="flex items-center space-x-2 bg-gray-700/50 hover:bg-gray-600/70 border border-gray-600/80 rounded-lg px-4 py-2.5 transition-all duration-200 group">
-      <IconComponent
-        size={22}
-        style={{ color: skill.color || "currentColor" }} // Use specific color or inherit
-        className="opacity-80 group-hover:opacity-100 transition-opacity"
-      />
-      <span className="text-sm sm:text-base text-gray-200 group-hover:text-white pt-[4.5px]">
-        {skill.name}
-      </span>
-    </div>
-  );
+const ACCENT_MAP: Record<
+  SkillCategory["accent"],
+  { dot: string; iconBox: string; spotlight: string }
+> = {
+  violet: {
+    dot: "bg-violet-400",
+    iconBox: "border-violet-500/30 bg-violet-500/10 text-violet-300",
+    spotlight: "rgba(139, 92, 246, 0.13)",
+  },
+  teal: {
+    dot: "bg-teal-400",
+    iconBox: "border-teal-500/30 bg-teal-500/10 text-teal-300",
+    spotlight: "rgba(45, 212, 191, 0.12)",
+  },
+  blue: {
+    dot: "bg-sky-400",
+    iconBox: "border-sky-500/30 bg-sky-500/10 text-sky-300",
+    spotlight: "rgba(56, 189, 248, 0.12)",
+  },
+  slate: {
+    dot: "bg-slate-400",
+    iconBox: "border-white/[0.12] bg-white/[0.04] text-slate-300",
+    spotlight: "rgba(148, 163, 184, 0.11)",
+  },
 };
 
-const SkillsCategoryCard: React.FC<{ category: SkillCategory }> = ({
-  category,
-}) => {
-  const CategoryIcon = category.icon;
+export default function SkillsPage() {
   return (
-    <div className="bg-gray-800/70 backdrop-blur-sm rounded-xl shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:bg-gray-800/90">
-      <div className="flex items-center mb-5 text-red-600">
-        <CategoryIcon size={28} className="mr-3 opacity-90" />
-        <h2 className="text-2xl font-semibold text-white">{category.name}</h2>
-      </div>
-      <div className="flex flex-wrap gap-3">
-        {category.skills.map((skill) => (
-          <SkillPill key={skill.name} skill={skill} />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const SkillsPage: React.FC = () => {
-  return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-tl from-gray-800 via-gray-900 to-black text-white">
-      {/* Header Section */}
-      <header className="sticky top-0 z-50 bg-gray-900/60 backdrop-blur-lg shadow-lg">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
-              My Technical Skills
-            </h1>
-            <Link
-              href="/"
-              className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg transition-colors duration-200 text-xs sm:text-sm font-medium"
-              aria-label="Back to Home page"
-            >
-              <ArrowLeft size={18} />
-              <span>Back to Home</span>
-            </Link>
-          </div>
-        </div>
+    <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
+      <header className="max-w-2xl">
+        <p className="font-mono text-xs font-semibold tracking-wider text-violet-300 uppercase">
+          Engineering Stack
+        </p>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          Technical Skills
+        </h1>
+        <p className="mt-3 text-sm leading-relaxed text-slate-400 sm:text-base">
+          Technologies used across production .NET backend services, relational
+          data layers, Azure hosting, CI pipelines, and React/Next.js frontends.
+        </p>
       </header>
 
-      {/* Main Content Area */}
-      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {skillsData.map((category) => (
-            <SkillsCategoryCard key={category.name} category={category} />
-          ))}
-        </div>
-        {skillsData.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-[50vh]">
-            <p className="text-xl text-gray-400 mb-4">
-              Skills information is not available at the moment.
-            </p>
-          </div>
-        )}
-      </main>
+      <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+        {skillsData.map((category) => {
+          const Icon = category.icon;
+          const styles = ACCENT_MAP[category.accent];
+          return (
+            <SpotlightCard
+              key={category.id}
+              spotlightColor={styles.spotlight}
+              className="flex flex-col p-6"
+            >
+              <div className="flex items-start gap-3 border-b border-white/[0.07] pb-4">
+                <span
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border ${styles.iconBox}`}
+                >
+                  <Icon size={18} />
+                </span>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className={`h-2 w-2 rounded-full ${styles.dot}`} />
+                    <h2 className="text-base font-semibold text-white">
+                      {category.name}
+                    </h2>
+                  </div>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-400">
+                    {category.description}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                {category.skills.map((skill) => {
+                  const SkillIcon = skill.icon;
+                  return (
+                    <div
+                      key={skill.name}
+                      className="inline-flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-xs font-medium text-slate-200 transition-colors hover:border-white/[0.18] hover:bg-white/[0.07] hover:text-white"
+                    >
+                      <SkillIcon
+                        size={15}
+                        style={{ color: skill.color || "currentColor" }}
+                        className="shrink-0"
+                      />
+                      <span>{skill.name}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </SpotlightCard>
+          );
+        })}
+      </div>
     </div>
   );
-};
-
-export default SkillsPage;
+}
