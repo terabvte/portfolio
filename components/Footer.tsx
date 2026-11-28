@@ -39,7 +39,7 @@ export default function Footer({ onCopyEmail }: FooterProps) {
             <span>CV (PDF)</span>
           </a>
           <a
-            href="https://github.com/terabvte/quote-engine"
+            href="https://github.com/marcofediuc/quote-engine"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
@@ -48,7 +48,7 @@ export default function Footer({ onCopyEmail }: FooterProps) {
             <span>Case Study</span>
           </a>
           <a
-            href="https://github.com/terabvte"
+            href="https://github.com/marcofediuc"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 transition-colors hover:text-white"

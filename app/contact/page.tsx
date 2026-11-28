@@ -149,14 +149,14 @@ export default function ContactPage() {
               </a>
 
               <a
-                href="https://github.com/terabvte"
+                href="https://github.com/marcofediuc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between rounded-xl border border-white/[0.08] bg-white/[0.03] px-3.5 py-3 text-xs font-medium text-slate-200 transition-colors hover:border-white/[0.18] hover:bg-white/[0.06] hover:text-white"
               >
                 <span className="flex items-center gap-2.5">
                   <Github size={15} className="text-slate-300" />
-                  <span>GitHub (@terabvte)</span>
+                  <span>GitHub (@marcofediuc)</span>
                 </span>
                 <ArrowUpRight size={14} className="text-slate-500" />
               </a>

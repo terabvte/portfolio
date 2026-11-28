@@ -104,7 +104,7 @@ export default function HomePage() {
             </a>
 
             <a
-              href="https://github.com/terabvte/quote-engine"
+              href="https://github.com/marcofediuc/quote-engine"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl border border-white/[0.12] bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:border-white/[0.22] hover:bg-white/[0.08]"
@@ -115,7 +115,7 @@ export default function HomePage() {
             </a>
 
             <a
-              href="https://github.com/terabvte"
+              href="https://github.com/marcofediuc"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:border-white/[0.18] hover:bg-white/[0.06] hover:text-white"
